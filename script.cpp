@@ -78,7 +78,7 @@ int main(int argc, char* argv[]) {
 
     while (questionNumber < (int)answers.size() && questionNumber >= 0) {
         cout << "\033[37mLine " << questionNumber + 1
-             << "%)\n\n> ";
+             << "\n\n> ";
         getline(cin, userAnswer);
         cout << endl;
 
@@ -125,7 +125,7 @@ int main(int argc, char* argv[]) {
             questionNumber = 0;
             continue;
         } else if (lowerInput == "q") { // quit
-            cout << "Exiting quiz.\n";
+            cout << "Exiting script.\n";
             break;
         }
 
