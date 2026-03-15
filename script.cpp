@@ -97,6 +97,16 @@ int main(int argc, char* argv[]) {
             continue;
         }
 
+        // Clear screen option
+        if (lowerInput == "c") {
+            #ifdef _WIN32
+                system("cls");
+            #else
+                system("clear");
+            #endif
+            continue;
+        }
+
         // Change fuzzy success percentage
         if (lowerInput == "f") {
             double newPercentage;
@@ -141,13 +151,13 @@ int main(int argc, char* argv[]) {
             if (showHint)
                 cout << "Press Enter or 'n' for next, 'p' for previous, 's' to start over, "
                      << "'q' to quit, 'h' to toggle help, 'd' to display answer, "
-                     << "'f' to change fuzzy threshold, or try again.\033[37m\n\n";
+                     << "'f' to change fuzzy threshold, 'c' to clear screen, or try again.\033[37m\n\n";
         }
 
         // Show navigation hint at empty input or after correct answer if enabled
         if (showHint && (userAnswer.empty() || similarity >= fuzzySuccessPercentage)) {
             cout << "Navigation: Enter/n = next, p = previous, s = start over, "
-                 << "q = quit, h = toggle help, d = display answer, f = change fuzzy threshold\n\n";
+                 << "q = quit, h = toggle help, d = display answer, f = change fuzzy threshold, c = clear screen\n\n";
         }
     }
 
