@@ -93,7 +93,7 @@ int main(int argc, char* argv[]) {
 
         // Display current answer (without affecting question)
         if (lowerInput == "d") {
-            cout << "\033[36mCurrent answer: " << answers[questionNumber] << "\033[0m\n\n";
+            cout << "\033[36mCurrent answer: \n\n" << answers[questionNumber] << "\033[0m\n\n";
             continue;
         }
 
