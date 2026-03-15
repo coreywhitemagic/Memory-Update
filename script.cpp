@@ -49,6 +49,15 @@ double similarityPercentage(const string& s1, const string& s2) {
     return 100.0 - (static_cast<double>(dp[len1][len2]) / maxLen * 100.0);
 }
 
+// Function to clear screen
+void clearScreen() {
+#ifdef _WIN32
+    system("cls");
+#else
+    system("clear");
+#endif
+}
+
 int main(int argc, char* argv[]) {
     string answersFileName;
     cout << endl;
@@ -77,10 +86,11 @@ int main(int argc, char* argv[]) {
     double fuzzySuccessPercentage = 50.0; // default threshold
 
     while (questionNumber < (int)answers.size() && questionNumber >= 0) {
-        cout << "\033[37mLine " << questionNumber + 1
-             << "\n\n> ";
+        cout << "\033[37mLine " << questionNumber + 1 << "\n\n> "; // show current line number above prompt
         getline(cin, userAnswer);
-        cout << endl;
+
+        // Clear screen immediately after input, before any output
+        clearScreen();
 
         string lowerInput = normalize(userAnswer);
 
