@@ -6,9 +6,9 @@ Takes a script land lets you memorize it with fuzzy logic so exact answers aren'
 Enter, or 'n' for next, </br>
 'p' for previous, </br>
 's' to start over, </br>
+'d' to display answer,</br>
 'q' to quit, </br>
 'h' to toggle help, </br>
-'d' to display answer,</br>
 'f' to set fuzzy percentage,</br>
 Or enter an answer to try again.
 
