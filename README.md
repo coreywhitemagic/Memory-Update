@@ -4,13 +4,13 @@ New memory system
 Takes a script land lets you memorize it with fuzzy logic so exact answers aren't necessary. The menu has these options:
 
 Enter, or 'n' for next, </br>
-'p' for previous, </br>
-'s' to start over, </br>
-'d' to display answer,</br>
-'r' to jump to a random question,</br>
-'h' to toggle help, </br>
-'q' to quit, </br>
-'f' to set fuzzy percentage,</br>
+'p' previous, </br>
+'s' start over, </br>
+'d' display answer,</br>
+'r' random jump,</br>
+'h' toggle help, </br>
+'q' quit, </br>
+'f' set fuzzy percentage,</br>
 Or enter an answer to try again.
 
 Every odd line of the script becomes a prompt for the user, and every even line is the answer.
