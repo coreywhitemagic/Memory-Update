@@ -1,7 +1,7 @@
 # Memory-Update
 New memory system 
 
-Takes a script land lets you memorize it with fuzzy logic so exact answers aren't necessary. The menu has these options:
+Takes a script and lets you memorize it with fuzzy logic so exact answers aren't necessary. The menu has these options:
 
 Enter, or 'n' for next, </br>
 'p' previous, </br>
