@@ -60,7 +60,7 @@ void clearScreen() {
 // Function to display help menu in a single line
 void displayHelp(bool showHint) {
     if (!showHint) return;
-    cout << "\033[37mHelp Menu: Enter/n=next, p=previous, s=start over, q=quit, h=toggle help, d=display answer, f=change fuzzy threshold. Press Enter to continue or try a command.\033[0m\n\n";
+    cout << "\033[37mHelp Menu: Enter or n = next, p = previous, s = start over, d = display answer, q = quit, h = toggle help, f = change fuzzy threshold. Press Enter to continue or try a command.\033[0m\n\n";
 }
 
 int main(int argc, char* argv[]) {
