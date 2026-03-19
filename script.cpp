@@ -62,12 +62,12 @@ void clearScreen() {
 // Function to display help menu in a single line
 void displayHelp(bool showHint) {
     if (!showHint) return;
-    cout << "\033[37mHelp Menu: Enter or n = next, p = previous, s = start over, d = display answer, r = random jump, j = search question, c = clear screen, h = toggle help, q = quit, f = change fuzzy threshold.\033[0m\n\n";
+    cout << "\033[37mHelp Menu: Enter/n = next, p = previous, s = start, d = display answer, r = random (skips memorized), m = toggle memorized, j = search, c = clear, h = help, q = quit, f = fuzzy.\033[0m\n\n";
 }
 
 int main(int argc, char* argv[]) {
 
-    srand(static_cast<unsigned int>(time(nullptr))); // seed RNG
+    srand(static_cast<unsigned int>(time(nullptr)));
 
     clearScreen();
 
@@ -89,6 +89,9 @@ int main(int argc, char* argv[]) {
     while (getline(answersFile, line)) answers.push_back(line);
     answersFile.close();
 
+    // 🔥 Memorized flags (only for questions = even indices)
+    vector<bool> memorized(answers.size(), false);
+
     string userAnswer;
     int questionNumber = 0;
     bool showHint = true;
@@ -96,16 +99,20 @@ int main(int argc, char* argv[]) {
 
     while (questionNumber < (int)answers.size() - 1 && questionNumber >= 0) {
 
-        // Show the question (odd line in file)
-        cout << "\033[33m" << answers[questionNumber] << "\033[0m\n\n> ";
+        cout << "\033[33m" << answers[questionNumber];
+
+        if (memorized[questionNumber]) {
+            cout << " [MEMORIZED]";
+        }
+
+        cout << "\033[0m\n\n> ";
+
         getline(cin, userAnswer);
 
-        // Clear screen first
         clearScreen();
 
         string lowerInput = normalize(userAnswer);
 
-        // Handle commands
         if (lowerInput == "h") {
             showHint = !showHint;
             cout << (showHint ? "Help is now on.\n\n" : "Help is now off.\n\n");
@@ -123,59 +130,77 @@ int main(int argc, char* argv[]) {
 
             if (newPercentage >= 0 && newPercentage <= 100) {
                 fuzzySuccessPercentage = newPercentage;
-                cout << "Fuzzy success percentage updated to "
-                     << fuzzySuccessPercentage << "%\n\n";
+                cout << "Updated to " << fuzzySuccessPercentage << "%\n\n";
             } else {
-                cout << "Invalid value. Must be 0-100.\n\n";
+                cout << "Invalid value.\n\n";
             }
         }
-        else if (lowerInput == "c") { // clear screen manually
+        else if (lowerInput == "c") {
             clearScreen();
             cout << "Screen refreshed.\n\n";
         }
-        else if (userAnswer.empty() || lowerInput == "n") { // next
+        else if (lowerInput == "m") {
+            memorized[questionNumber] = !memorized[questionNumber];
+            cout << (memorized[questionNumber] ? "Marked as memorized.\n\n"
+                                              : "Unmarked memorized.\n\n");
+        }
+        else if (userAnswer.empty() || lowerInput == "n") {
             questionNumber += 2;
         }
-        else if (lowerInput == "p") { // previous
+        else if (lowerInput == "p") {
             questionNumber -= 2;
             if (questionNumber < 0) questionNumber = 0;
         }
-        else if (lowerInput == "s") { // start over
+        else if (lowerInput == "s") {
             questionNumber = 0;
         }
-        else if (lowerInput == "q") { // quit
+        else if (lowerInput == "q") {
             cout << "Exiting script.\n";
             break;
         }
-        else if (lowerInput == "r") { // random odd line jump
-            int maxOddIndex = ((int)answers.size() - 1) / 2;
-            int randomOdd = rand() % (maxOddIndex + 1);
-            questionNumber = randomOdd * 2;
-            cout << "\nJumped to a random question!\n\n";
+        else if (lowerInput == "r") {
+            vector<int> available;
+
+            for (int i = 0; i < (int)answers.size(); i += 2) {
+                if (!memorized[i]) {
+                    available.push_back(i);
+                }
+            }
+
+            if (available.empty()) {
+                cout << "All questions are memorized!\n\n";
+            } else {
+                int pick = rand() % available.size();
+                questionNumber = available[pick];
+                cout << "Jumped to a random non-memorized question!\n\n";
+            }
         }
-        else if (lowerInput == "j") { // search jump
+        else if (lowerInput == "j") {
             cout << "Question to search for: ";
             string searchQuery;
             getline(cin, searchQuery);
+
             string searchNorm = normalize(searchQuery);
             bool found = false;
+
             for (size_t i = 0; i < answers.size(); i += 2) {
                 if (normalize(answers[i]).find(searchNorm) != string::npos) {
                     questionNumber = (int)i;
                     found = true;
-                    cout << "\nJumped to matching question!\n\n";
+                    cout << "Jumped to matching question!\n\n";
                     break;
                 }
             }
+
             if (!found) {
-                cout << "No matching question found.\n\n";
+                cout << "No match found.\n\n";
             }
         }
-        else { // Treat as answer
+        else {
             double similarity = similarityPercentage(userAnswer, answers[questionNumber + 1]);
 
             if (similarity >= fuzzySuccessPercentage) {
-                cout << "\033[0m" << answers[questionNumber + 1]
+                cout << answers[questionNumber + 1]
                      << "\nCorrect! (" << similarity << "%)\n\n";
                 questionNumber += 2;
             } else {

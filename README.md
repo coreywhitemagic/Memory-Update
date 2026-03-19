@@ -7,7 +7,8 @@ Enter, or 'n' for next, </br>
 'p' previous, </br>
 's' start over, </br>
 'd' display answer,</br>
-'r' random jump,</br>
+'r' random jump (skips memorized),</br>
+'m' toggle question as memorized,</br> 
 'j' jump to question,</br>
 'c' clear screen,</br>
 'h' toggle help, </br>
