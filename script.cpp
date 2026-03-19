@@ -62,7 +62,7 @@ void clearScreen() {
 // Function to display help menu in a single line
 void displayHelp(bool showHint) {
     if (!showHint) return;
-    cout << "\033[37mHelp Menu: Enter or n = next, p = previous, s = start over, d = display answer, r = random jump, j = search question, h = toggle help, q = quit, f = change fuzzy threshold.\033[0m\n\n";
+    cout << "\033[37mHelp Menu: Enter or n = next, p = previous, s = start over, d = display answer, r = random jump, j = search question, c = clear screen, h = toggle help, q = quit, f = change fuzzy threshold.\033[0m\n\n";
 }
 
 int main(int argc, char* argv[]) {
@@ -129,6 +129,10 @@ int main(int argc, char* argv[]) {
                 cout << "Invalid value. Must be 0-100.\n\n";
             }
         }
+        else if (lowerInput == "c") { // clear screen manually
+            clearScreen();
+            cout << "Screen refreshed.\n\n";
+        }
         else if (userAnswer.empty() || lowerInput == "n") { // next
             questionNumber += 2;
         }
@@ -146,7 +150,7 @@ int main(int argc, char* argv[]) {
         else if (lowerInput == "r") { // random odd line jump
             int maxOddIndex = ((int)answers.size() - 1) / 2;
             int randomOdd = rand() % (maxOddIndex + 1);
-            questionNumber = randomOdd * 2; // ensures it's odd-numbered line (0-based)
+            questionNumber = randomOdd * 2;
             cout << "\nJumped to a random question!\n\n";
         }
         else if (lowerInput == "j") { // search jump
@@ -155,7 +159,7 @@ int main(int argc, char* argv[]) {
             getline(cin, searchQuery);
             string searchNorm = normalize(searchQuery);
             bool found = false;
-            for (size_t i = 0; i < answers.size(); i += 2) { // only odd lines
+            for (size_t i = 0; i < answers.size(); i += 2) {
                 if (normalize(answers[i]).find(searchNorm) != string::npos) {
                     questionNumber = (int)i;
                     found = true;

@@ -9,6 +9,7 @@ Enter, or 'n' for next, </br>
 'd' display answer,</br>
 'r' random jump,</br>
 'j' jump to question,</br>
+'c' clear screen,</br>
 'h' toggle help, </br>
 'q' quit, </br>
 'f' set fuzzy percentage,</br>
