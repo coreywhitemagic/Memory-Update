@@ -23,6 +23,7 @@ Other:</br>
     q - quit</br>
  </br>
  Or enter an answer </br>
- 
+ ```
+
 Every odd line of the script becomes a prompt for the user, and every even line is the answer.
 Random questions get shuffled at beginning of the program cycle.
