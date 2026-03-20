@@ -91,19 +91,19 @@ void showHelpScreen() {
 
     cout << "\033[37m=== HELP ===\n\n";
 
-    cout << "Nav:\n\n";
+    cout << "Navigation:\n\n";
     cout << " n/Enter - next\n";
-    cout << " p       - prev\n";
+    cout << " p       - previous\n";
     cout << " s       - start\n";
     cout << " r       - random\n\n";
 
     cout << "Actions:\n\n";
     cout << " d - show answer\n";
-    cout << " m - memorized\n";
-    cout << " v - skip mem\n";
-    cout << " j - search\n";
+    cout << " m - mark as memorized\n";
+    cout << " v - skip memorized questions\n";
+    cout << " j - jump to question\n";
     cout << " f - fuzzy %\n";
-    cout << " t - stats\n";
+    cout << " t - statisticss\n";
     cout << " c - clear\n\n";
 
     cout << "Other:\n\n";
