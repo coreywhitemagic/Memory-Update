@@ -26,7 +26,7 @@ Actions:
 Other:
 
     h - help
-    q - quit<
+    q - quit
  
 Or enter an answer.
  ```
